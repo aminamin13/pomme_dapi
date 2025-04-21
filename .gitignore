@@ -1,0 +1,36 @@
+# Flutter specific
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+.idea/
+android/.gradle/
+lib\utils\keys\keys.dart
+android/app/key.properties
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+*.iml
+
+# Firebase related
+firebase.json
+**/google-services.json
+**/GoogleService-Info.plist
+
+# VS Code
+.vscode/
+
+# macOS specific
+.DS_Store
+
+# Linux
+*.swp
+
+# Environment files
+.env
+.env.*
+
+# Crashlytics or performance logs (if any)
+crashlytics-build.properties
