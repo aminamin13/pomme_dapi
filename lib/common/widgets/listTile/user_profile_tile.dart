@@ -21,12 +21,15 @@ class AppUserProfile extends StatelessWidget {
         final image = networkImage.isNotEmpty ? networkImage : AppImages.user;
         return controller.imageUploading.value == true
             ? const AppShimmerEffect(width: 80, height: 80, radius: 80)
-            : AppCircularImage(
-              image: image,
-              isNetworkImage: networkImage.isNotEmpty,
-              height: 80,
-              width: 80,
-              padding: 0,
+            : Expanded(
+              child: AppCircularImage(
+                image: image,
+                fit: BoxFit.cover,
+                isNetworkImage: networkImage.isNotEmpty,
+                height: 80,
+                width: 80,
+                padding: 0,
+              ),
             );
       }),
       title: Text(

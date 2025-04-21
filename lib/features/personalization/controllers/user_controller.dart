@@ -166,9 +166,11 @@ class UserController extends GetxController {
 
   Future<void> uploadUserProfilePicture() async {
     var oldImage = user.value.profilePicture;
+    print(oldImage);
 
     try {
-      if (oldImage.isNotEmpty) {
+      if (oldImage.isNotEmpty &&
+          oldImage.contains("firebasestorage.googleapis.com")) {
         // delete old image
         await userRepository.deleteImage(oldImage);
         print("Deleted old image: $oldImage");

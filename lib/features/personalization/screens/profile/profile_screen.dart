@@ -52,6 +52,7 @@ class ProfileScreen extends StatelessWidget {
                       )
                       : AppCircularImage(
                         image: image,
+                        fit: BoxFit.cover,
                         isNetworkImage: networkImage.isNotEmpty,
                         height: 80,
                         width: 80,
