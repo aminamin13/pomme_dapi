@@ -26,34 +26,45 @@ class AppCartItem extends StatelessWidget {
         ),
         const SizedBox(width: AppSizes.spaceBtwItems),
         Expanded(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              BrandTitleWithVerifiedIcon(title: cartItem.brandName ?? ''),
-              Flexible(
-                child: ProductTitleText(title: cartItem.title, maxLines: 1),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  BrandTitleWithVerifiedIcon(title: cartItem.brandName ?? ''),
+                  Flexible(
+                    child: ProductTitleText(title: cartItem.title, maxLines: 1),
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      children:
+                          (cartItem.selectedVariation ?? {}).entries
+                              .map(
+                                (e) => TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: "${e.key}: ",
+                                      style:
+                                          Theme.of(context).textTheme.bodySmall,
+                                    ),
+                                    TextSpan(
+                                      text: e.value,
+                                      style:
+                                          Theme.of(context).textTheme.bodyLarge,
+                                    ),
+                                  ],
+                                ),
+                              )
+                              .toList(),
+                    ),
+                  ),
+                ],
               ),
-              Text.rich(
-                TextSpan(
-                  children:
-                      (cartItem.selectedVariation ?? {}).entries
-                          .map(
-                            (e) => TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "${e.key}: ",
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                                TextSpan(
-                                  text: e.value,
-                                  style: Theme.of(context).textTheme.bodyLarge,
-                                ),
-                              ],
-                            ),
-                          )
-                          .toList(),
-                ),
+              Text(
+                "\$${cartItem.price}",
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ],
           ),

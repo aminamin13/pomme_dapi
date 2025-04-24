@@ -47,7 +47,7 @@ class CartController extends GetxController {
         return;
       }
     }
-    
+
     final selectedCartItem = convertToCartItem(
       product,
       productQuantityInCart.value,

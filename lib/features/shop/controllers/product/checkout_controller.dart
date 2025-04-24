@@ -129,7 +129,7 @@ class CheckOutController extends GetxController {
           .then((value) {
             print(value);
           });
-      showPaymentSheet();
+      showPaymentSheet(Get.context!);
     } catch (e, s) {
       if (kDebugMode) {
         print(s);
@@ -169,30 +169,27 @@ class CheckOutController extends GetxController {
     }
   }
 
-  void showPaymentSheet() async {
+  void showPaymentSheet(BuildContext context) async {
     try {
       await Stripe.instance
           .presentPaymentSheet()
           .then((value) {
             paymentIntentData = null;
+            final tax = AppPricingCalculator.calculateTax(
+              CartController.instance.totalCartPrice.value,
+              'Us',
+            );
+
+            final total =
+                CartController.instance.totalCartPrice.value +
+                SettingsController.instance.settings.value.shippingCost +
+                num.parse(tax);
+
+            OrderController.instance.processOrder(total);
           })
           .onError((e, s) {
-            if (kDebugMode) {
-              print(s);
-            }
-            print(e.toString());
+            print("Payment canceled or failed");
           });
-      final tax = AppPricingCalculator.calculateTax(
-        CartController.instance.totalCartPrice.value,
-        'Us',
-      );
-
-      final total =
-          CartController.instance.totalCartPrice.value +
-          SettingsController.instance.settings.value.shippingCost +
-          num.parse(tax);
-
-      OrderController.instance.processOrder(total);
     } on StripeException catch (e) {
       if (kDebugMode) {
         print(e);
